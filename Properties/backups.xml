@@ -1,0 +1,19 @@
+<Properties>
+
+  <Client name="backupserver">
+    <BackupServer />
+  </Client>
+
+  <Client name="backupserver" negate="true">
+    <BackupConfig
+      destination='/srv/rdiff-backup-bcfg2'
+      enable='true'
+      args=''
+      retention='30D' >
+      <Path path='/etc' />
+    </BackupConfig>
+  </Client>
+
+</Properties>
+
+<!-- vim:set expandtab softtabstop=2 shiftwidth=2 textwidth=80: -->

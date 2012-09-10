@@ -1,0 +1,9 @@
+This module is an incomplete port of the rdiff-backup
+module for puppet ( https://github.com/camptocamp/puppet-rdiff-backup )
+
+It was never used in any production system, because
+we decided to stick with the puppet configuration
+management tool.
+
+Lukas Hetzenecker
+lukas.hetzenecker@gmail.com

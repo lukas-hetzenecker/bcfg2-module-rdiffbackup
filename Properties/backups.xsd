@@ -1,0 +1,59 @@
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+
+  <xsd:annotation>
+    <xsd:documentation>
+      XML Schema for Properties/backups.xml
+      Lukas Hetzenecker
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:simpleType name='pathType'>
+    <xsd:restriction base='xsd:string'>
+      <xsd:pattern value='/.*'/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name='pathElementType'>
+    <xsd:attribute name='path' type='pathType' use='required'/>
+  </xsd:complexType>
+
+  <xsd:complexType name='backupConfigType'>
+    <xsd:choice minOccurs='1' maxOccurs='unbounded'>
+       <xsd:element name='Path' type='pathElementType'/>
+    </xsd:choice>
+    <xsd:attribute name='destination' type='pathType' use='required'/>
+    <xsd:attribute name='enable' type='xsd:boolean'/>
+    <xsd:attribute name='args' type='xsd:string'/>
+    <xsd:attribute name='retention' type='xsd:string'/>
+  </xsd:complexType>
+
+  <xsd:complexType name='backupServerType'>
+    <xsd:attribute name='backup_directory' type='xsd:string'/>
+    <xsd:attribute name='max_process' type='xsd:unsignedInt'/>
+  </xsd:complexType>
+
+  <xsd:complexType name='containerType'>
+    <xsd:choice maxOccurs='unbounded'>
+      <xsd:element name='BackupServer' type='backupServerType'/>
+      <xsd:element name='BackupConfig' type='backupConfigType'/>
+      <xsd:element name='Client' type='containerType'/>
+      <xsd:element name='Group' type='containerType'/>
+    </xsd:choice>
+    <xsd:attribute name='name' type='xsd:string' use='required'/>
+    <xsd:attribute name='negate' type='xsd:boolean'/>
+  </xsd:complexType>
+
+  <xsd:complexType name='propertiesType'>
+    <xsd:choice minOccurs='0' maxOccurs='unbounded'>
+      <xsd:element name='BackupConfig' type='backupConfigType'/>
+      <xsd:element name='BackupServer' type='backupServerType'/>
+      <xsd:element name='Client' type='containerType'/>
+      <xsd:element name='Group' type='containerType'/>
+    </xsd:choice>
+  </xsd:complexType>
+
+  <xsd:element name='Properties' type='propertiesType'/>
+
+</xsd:schema>
+
+<!-- vim:set expandtab softtabstop=2 shiftwidth=2 textwidth=80: -->
